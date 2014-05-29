@@ -9,15 +9,18 @@ prev_status = ""
 
 def on_message(ws, message):
     global prev_status
-    cur_status = json.loads(message)["status"]["value"]
-    if cur_status != prev_status:
-        prev_status = cur_status
-        if cur_status == "open":
-            print "Now it's opened!" # Mettete qui le cose da fare all'apertura della sede
-        elif cur_status == "closed":
-            print "Now it's closed!" # Mettete qui le cose da fare alla chiusura della sede
-        else:
-            print "WTF?" # Se entra qui, non va bene
+    try:
+        cur_status = json.loads(message)["status"]["value"]
+        if cur_status != prev_status:
+            prev_status = cur_status
+            if cur_status == "open":
+                print "Now it's opened!" # Mettete qui le cose da fare all'apertura della sede
+            elif cur_status == "closed":
+                print "Now it's closed!" # Mettete qui le cose da fare alla chiusura della sede
+            else:
+                print "WTF?" # Se entra qui, non va bene
+    except:
+        pass
 
 def on_error(ws, error):
     print "Error: " + error.message
